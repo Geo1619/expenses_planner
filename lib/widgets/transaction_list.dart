@@ -5,7 +5,9 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-  const TransactionList({Key? key, required this.transactions})
+  final void Function(String id) deleteTx;
+  const TransactionList(
+      {Key? key, required this.transactions, required this.deleteTx})
       : super(key: key);
 
   @override
@@ -37,23 +39,29 @@ class TransactionList extends StatelessWidget {
                   elevation: 5,
                   margin: const EdgeInsets.only(bottom: 10),
                   child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: FittedBox(
-                              child: Text(
-                            '\$${transactions[index].amount.toStringAsFixed(2)}',
-                          )),
-                        ),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                            child: Text(
+                          '\$${transactions[index].amount.toStringAsFixed(2)}',
+                        )),
                       ),
-                      title: Text(
-                        transactions[index].title,
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      subtitle: Text(
-                        DateFormat.yMMMd().format(transactions[index].date),
-                      )),
+                    ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => deleteTx(transactions[index].id),
+                    ),
+                  ),
                   // child: Row(
                   //   children: [
                   //     Container(
