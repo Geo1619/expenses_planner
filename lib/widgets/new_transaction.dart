@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -6,16 +8,44 @@ import 'adaptive_text_button.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTx;
 
-  const NewTransaction({Key? key, required this.addTx}) : super(key: key);
+  NewTransaction({Key? key, required this.addTx}) : super(key: key) {
+    print("Constructor NewTransaction Widget");
+  }
 
   @override
-  State<NewTransaction> createState() => _NewTransactionState();
+  // ignore: no_logic_in_create_state
+  State<NewTransaction> createState() {
+    print('createState NewTransaction Widget');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
   DateTime? _selectedDate;
+
+  _NewTransactionState() {
+    print('Constructor NewTransaction State');
+  }
+
+  @override
+  void initState() {
+    print('InitState()');
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    print('didUpdateWidget()');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    print('dispose()');
+    super.dispose();
+  }
 
   void _submitData() {
     final String enteredTitle = titleController.text;

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:expenses_planner/widgets/chart.dart';
-import 'package:expenses_planner/widgets/new_transasction.dart';
+import 'package:expenses_planner/widgets/new_transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -71,10 +71,31 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+// "with" is a "mix in" short of partial inheritance
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [];
 
   bool _showChart = false;
+
+  // Add listeners to lifecycle changes from observer (_MyHomePageState)
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addObserver(this);
+    super.initState();
+  }
+
+  // this is the listener
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  // Clear listeners to lifecycle changes from observer (_MyHomePageState)
+  @override
+  dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
