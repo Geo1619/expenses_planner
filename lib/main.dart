@@ -117,11 +117,15 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     });
   }
 
-  void _startAddNewTransaction() {
+  void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
-        context: context,
+        context: ctx,
         builder: (_) {
-          return NewTransaction(addTx: _addNewTransaction);
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(addTx: _addNewTransaction),
+            behavior: HitTestBehavior.opaque,
+          );
         });
   }
 
@@ -189,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             trailing: Row(mainAxisSize: MainAxisSize.min, children: [
               IconButton(
                 icon: const Icon(CupertinoIcons.add),
-                onPressed: _startAddNewTransaction,
+                onPressed: () => _startAddNewTransaction(context),
               )
             ]),
           )
@@ -200,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.add),
-                onPressed: _startAddNewTransaction,
+                onPressed: () => _startAddNewTransaction(context),
               )
             ],
           ) as PreferredSizeWidget;
@@ -250,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             floatingActionButton: Platform.isIOS
                 ? Container()
                 : FloatingActionButton(
-                    onPressed: _startAddNewTransaction,
+                    onPressed: () => _startAddNewTransaction(context),
                     child: const Icon(
                       Icons.add,
                       color: Colors.black,

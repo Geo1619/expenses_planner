@@ -23,14 +23,14 @@ class _TransactionItemState extends State<TransactionItem> {
   Color? _bgColor;
   @override
   void initState() {
-    const AvalailableBgColors = [
+    const avalailableBgColors = [
       Colors.red,
       Colors.blue,
       Colors.green,
       Colors.yellow,
       Colors.purple
     ];
-    _bgColor = AvalailableBgColors[int.parse(Random(4).toString())];
+    _bgColor = avalailableBgColors[Random().nextInt(4)];
     super.initState();
   }
 
@@ -41,6 +41,7 @@ class _TransactionItemState extends State<TransactionItem> {
       margin: const EdgeInsets.only(bottom: 10),
       child: ListTile(
         leading: CircleAvatar(
+          backgroundColor: _bgColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(6),
